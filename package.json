@@ -1,15 +1,15 @@
 {
-  "name": "todo-react-redux",
+  "name": "mk-done",
   "version": "0.6.0",
   "description": "Todo app with Create React App, React Redux, and Firebase",
-  "homepage": "https://todo-react-redux.firebaseapp.com",
+  "homepage": "https://mk-done.firebaseapp.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/r-park/todo-react-redux.git"
   },
   "author": {
-    "name": "Richard Park",
-    "email": "objectiv@gmail.com"
+    "name": "Alex McGregor-Cheers",
+    "email": "alex.cheers@gmail.com"
   },
   "license": "MIT",
   "private": true,
@@ -19,10 +19,12 @@
   "scripts": {
     "eject": "react-scripts eject",
     "build": "run-s build:css build:js",
-    "build:css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "build:css":
+      "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "build:js": "cross-env NODE_PATH=. react-scripts build",
     "start": "run-p start:css start:js",
-    "start:css": "npm run build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start:css":
+      "npm run build:css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start:js": "cross-env NODE_PATH=. react-scripts start",
     "test": "cross-env NODE_PATH=. react-scripts test --env=jsdom",
     "test:ci": "cross-env CI=true NODE_PATH=. react-scripts test --env=jsdom"
