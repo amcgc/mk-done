@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
-import { List } from 'immutable';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+import React, { Component } from "react";
+import { List } from "immutable";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createSelector } from "reselect";
 
-import { getNotification, notificationActions } from 'src/notification';
-import { getTaskFilter, getVisibleTasks, tasksActions } from 'src/tasks';
-import Notification from '../../components/notification';
-import TaskFilters from '../../components/task-filters';
-import TaskForm from '../../components/task-form';
-import TaskList from '../../components/task-list';
-
+import { getNotification, notificationActions } from "src/notification";
+import { getTaskFilter, getOrderedTasks, tasksActions } from "src/tasks";
+import Notification from "../../components/notification";
+import TaskFilters from "../../components/task-filters";
+import TaskForm from "../../components/task-form";
+import TaskList from "../../components/task-list";
 
 export class TasksPage extends Component {
   static propTypes = {
@@ -30,16 +29,12 @@ export class TasksPage extends Component {
 
   componentWillMount() {
     this.props.loadTasks();
-    this.props.filterTasks(
-      this.getFilterParam(this.props.location.search)
-    );
+    this.props.filterTasks(this.getFilterParam(this.props.location.search));
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.location.search !== this.props.location.search) {
-      this.props.filterTasks(
-        this.getFilterParam(nextProps.location.search)
-      );
+      this.props.filterTasks(this.getFilterParam(nextProps.location.search));
     }
   }
 
@@ -49,7 +44,7 @@ export class TasksPage extends Component {
 
   getFilterParam(search) {
     const params = new URLSearchParams(search);
-    return params.get('filter');
+    return params.get("filter");
   }
 
   renderNotification() {
@@ -87,7 +82,6 @@ export class TasksPage extends Component {
   }
 }
 
-
 //=====================================
 //  CONNECT
 //-------------------------------------
@@ -95,7 +89,7 @@ export class TasksPage extends Component {
 const mapStateToProps = createSelector(
   getNotification,
   getTaskFilter,
-  getVisibleTasks,
+  getOrderedTasks,
   (notification, filterType, tasks) => ({
     notification,
     filterType,
@@ -103,13 +97,6 @@ const mapStateToProps = createSelector(
   })
 );
 
-const mapDispatchToProps = Object.assign(
-  {},
-  tasksActions,
-  notificationActions
-);
+const mapDispatchToProps = Object.assign({}, tasksActions, notificationActions);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TasksPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TasksPage);

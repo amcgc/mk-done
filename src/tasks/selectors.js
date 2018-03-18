@@ -1,5 +1,4 @@
-import { createSelector } from 'reselect';
-
+import { createSelector } from "reselect";
 
 export function getTasks(state) {
   return state.tasks;
@@ -17,7 +16,6 @@ export function getDeletedTask(state) {
   return getTasks(state).deleted;
 }
 
-
 //=====================================
 //  MEMOIZED SELECTORS
 //-------------------------------------
@@ -27,14 +25,21 @@ export const getVisibleTasks = createSelector(
   getTaskFilter,
   (tasks, filter) => {
     switch (filter) {
-      case 'active':
+      case "active":
         return tasks.filter(task => !task.completed);
 
-      case 'completed':
+      case "completed":
         return tasks.filter(task => task.completed);
 
       default:
         return tasks;
     }
+  }
+);
+
+export const getOrderedTasks = createSelector(
+  getVisibleTasks,
+  filteredTasks => {
+    return filteredTasks.sortBy(filteredTask => filteredTask.rank);
   }
 );
